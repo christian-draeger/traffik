@@ -1,28 +1,22 @@
 package it.skrape.traffik.usb
 
-import it.skrape.traffik.ui.Action
-import it.skrape.traffik.ui.Color
+import it.skrape.traffik.domain.Action
+import it.skrape.traffik.domain.Color
+import it.skrape.traffik.domain.TrafficLight
 import mu.KotlinLogging
 import javax.usb.UsbDevice
 import javax.usb.UsbHostManager
 import javax.usb.UsbHub
 
-object UsbDevices {
+class UsbDevices : TrafficLight {
 
     private val logger = KotlinLogging.logger {}
 
-    fun getAmpel(): UsbDevice? {
-        val availableDevices = getAvailableDevices()
-        return availableDevices.find {
-            it.usbDeviceDescriptor.idVendor() == 0x0d50.toShort() && it.usbDeviceDescriptor.iProduct() == 0x0008.toByte()
-        }
-    }
+    override fun action(color: Color, action: Action) {
 
-    fun ampelAction(color: Color, action: Action) {
+        logger.info { "try to switch $color traffic light $action" }
 
-        logger.info { "try to communicate with traffic light - action: $color $action" }
-
-        val device = getAmpel()
+        val device = get()
 
         if (device != null) {
             val usbInterface = device.activeUsbConfiguration.getUsbInterface(0)
@@ -37,6 +31,13 @@ object UsbDevices {
             } finally {
                 pipe.close()
             }
+        }
+    }
+
+    override fun get(): UsbDevice? {
+        val availableDevices = getAvailableDevices()
+        return availableDevices.find {
+            it.usbDeviceDescriptor.idVendor() == 0x0d50.toShort() && it.usbDeviceDescriptor.iProduct() == 0x0008.toByte()
         }
     }
 

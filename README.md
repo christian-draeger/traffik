@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/christian-draeger/traffik.svg?branch=master)](https://travis-ci.org/christian-draeger/traffik)
+
 Traffik
 =======
 

@@ -1,4 +1,4 @@
-package it.skrape.traffik.ui
+package it.skrape.traffik
 
 import it.skrape.traffik.domain.Action
 import it.skrape.traffik.domain.Color

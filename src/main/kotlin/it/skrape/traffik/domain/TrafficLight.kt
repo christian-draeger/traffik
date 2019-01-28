@@ -4,9 +4,7 @@ import javax.usb.UsbDevice
 
 interface TrafficLight {
 
-    fun isConnected(): Boolean {
-        return get() != null
-    }
+    fun isConnected(): Boolean = get() != null
 
     fun action(color: Color, action: Action)
 

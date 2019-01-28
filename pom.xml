@@ -14,6 +14,15 @@
     <name>traffik</name>
     <description>A Traffic Light to monitor your CI build results</description>
 
+    <repositories>
+        <!-- for kotlinx-html-jvm -->
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+
     <properties>
         <java.version>1.8</java.version>
         <kotlin.version>1.2.71</kotlin.version>
@@ -37,6 +46,11 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-html-jvm</artifactId>
+            <version>0.6.11</version>
+        </dependency>
+        <dependency>
             <groupId>io.github.microutils</groupId>
             <artifactId>kotlin-logging</artifactId>
             <version>1.6.22</version>
@@ -51,6 +65,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.wuerl.kotlin</groupId>
+            <artifactId>assertj-core-kotlin</artifactId>
+            <version>0.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.skrape</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1.0-beta2</version>
         </dependency>
     </dependencies>
 
@@ -80,6 +105,56 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+
+                <configuration>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>install node and yarn</id>
+
+                        <goals>
+                            <goal>install-node-and-yarn</goal>
+                        </goals>
+
+                        <configuration>
+                            <nodeVersion>v8.11.3</nodeVersion>
+                            <yarnVersion>v1.8.0</yarnVersion>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>yarn install</id>
+
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>yarn bundle</id>
+
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+
+                        <configuration>
+                            <arguments>bundle</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M3</version>
             </plugin>
         </plugins>
     </build>

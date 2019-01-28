@@ -1,4 +1,4 @@
-package it.skrape.traffik
+package it.skrape.traffik.usb
 
 import it.skrape.traffik.domain.Action
 import it.skrape.traffik.domain.Color

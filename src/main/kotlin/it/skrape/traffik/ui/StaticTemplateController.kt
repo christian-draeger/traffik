@@ -1,4 +1,4 @@
-package it.skrape.traffik
+package it.skrape.traffik.ui
 
 import kotlinx.html.*
 import kotlinx.html.dom.createHTMLDocument

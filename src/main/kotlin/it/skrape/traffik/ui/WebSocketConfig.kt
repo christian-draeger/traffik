@@ -11,13 +11,14 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 class WebSocketConfig : WebSocketMessageBrokerConfigurer {
 
-    override fun configureMessageBroker(config: MessageBrokerRegistry) {
-        config.enableSimpleBroker("/topic")
-        config.setApplicationDestinationPrefixes("/app")
-    }
-
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
-        registry.addEndpoint("/traffik-ui").withSockJS()
+        registry.addEndpoint("/handler").withSockJS()
     }
 
+    override fun configureMessageBroker(config: MessageBrokerRegistry) {
+        config.apply {
+            setApplicationDestinationPrefixes("/app")
+            enableSimpleBroker("/topic", "/queue")
+        }
+    }
 }

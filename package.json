@@ -8,7 +8,6 @@
     "postwatch": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1"
   },
   "dependencies": {
-    "json-fetch": "^7.5.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-stomp": "^4.1.0",

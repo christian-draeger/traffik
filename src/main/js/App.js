@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import SockJsClient from 'react-stomp';
-import Fetch from "json-fetch";
 import BackendConnection from "./components/indicators/BackEndConnectionIndicator";
 import JobResult from "./components/JobResult";
 
@@ -15,9 +14,8 @@ class App extends Component {
     }
 
     onMessageReceive(msg, topic) {
-        this.setState(prevState => ({
-            messages: [...prevState.messages, msg]
-        }));
+        console.log(`new message received for topic ${topic} - message: ${msg}`);
+        this.setState({ messages: msg });
     };
 
     sendMessage(msg, selfMsg) {
@@ -30,12 +28,11 @@ class App extends Component {
     };
 
     componentWillMount() {
-        Fetch("/history", {
-            method: "GET"
-        }).then((response) => {
-            console.log(response.body);
-            this.setState({ messages: response.body });
-        });
+        fetch("/history")
+            .then(response => response.json())
+            .then((data) => {
+                this.setState({ messages: data })
+            });
     }
 
     render() {
@@ -52,7 +49,7 @@ class App extends Component {
                 <ul>
                     {this.state.messages.map(job => <JobResult job={job}/>)}
                 </ul>
-                <button onClick={this.sendMessage({status: "OK"}, {status: "OK"})}>Add</button>
+                <button onClick={() => this.sendMessage({status: "OK"}, {status: "OK"})}>Add</button>
             </div>
         );
     }

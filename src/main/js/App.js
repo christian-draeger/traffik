@@ -13,12 +13,12 @@ class App extends Component {
         }
     }
 
-    onMessageReceive(msg, topic) {
+    onMessageReceive = (msg, topic) => {
         console.log(`new message received for topic ${topic} - message: ${msg}`);
         this.setState({ messages: msg });
     };
 
-    sendMessage(msg, selfMsg) {
+    sendMessage = (msg, selfMsg) => {
         try {
             this.clientRef.sendMessage("/app/all", JSON.stringify(selfMsg));
             return true;

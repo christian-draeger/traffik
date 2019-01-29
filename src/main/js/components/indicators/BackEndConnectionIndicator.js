@@ -1,6 +1,6 @@
 import React from "react";
 
-const BackendConnection = (isConnected) => {
+const BackendConnection = ({isConnected}) => {
     if (isConnected) {
         return (
             <p>Backend Connected</p>

@@ -4,6 +4,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 
@@ -20,7 +21,12 @@ class MessageController {
     }
 
     @GetMapping("/history")
-    fun getHistory(): List<Map<String, String>> {
+    fun get(): List<Map<String, String>> {
         return messageRepository
+    }
+
+    @GetMapping("/add")
+    fun add(@RequestParam status: String) {
+        messageRepository.add(mapOf("status" to status))
     }
 }

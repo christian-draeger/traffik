@@ -51,7 +51,7 @@ class UsbDevices : TrafficLight {
     override fun get(): UsbDevice? {
         val availableDevices = getAvailableDevices()
         return availableDevices.find {
-            it.usbDeviceDescriptor.idVendor() == 0x0d50.toShort() && it.usbDeviceDescriptor.iProduct() == 0x0008.toByte()
+            it.usbDeviceDescriptor.idVendor() == 0x0d50.toShort() && it.usbDeviceDescriptor.idProduct() == 0x0008.toShort()
         }
     }
 
@@ -78,8 +78,15 @@ class UsbDevices : TrafficLight {
             val hub = device as UsbHub
             val attachedUsbDevices = hub.attachedUsbDevices as List<UsbDevice>
 
-            attachedUsbDevices.forEach {
-                availableDevices.add(it)
+            attachedUsbDevices.forEach { usbDevice ->
+                if (usbDevice.isUsbHub) {
+                    val hub1 = usbDevice as UsbHub
+                    val attachedUsbDevices1 = hub1.attachedUsbDevices as List<UsbDevice>
+                    attachedUsbDevices1.forEach {
+                        availableDevices.add(it)
+                    }
+                }
+                availableDevices.add(usbDevice)
             }
         }
         return availableDevices

@@ -3,7 +3,6 @@ package it.skrape.traffik.usb
 import it.skrape.traffik.domain.Action
 import it.skrape.traffik.domain.Color
 import it.skrape.traffik.domain.TrafficLight
-import it.skrape.traffik.usb.UsbDevices
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -25,6 +24,6 @@ class TrafficLightController {
      */
     @GetMapping("/switch")
     fun trafficLightAction(@RequestParam color: Color, @RequestParam action: Action) {
-        trafficLight.action(color, action)
+        trafficLight.action(Pair(color, action))
     }
 }

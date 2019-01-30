@@ -9,18 +9,24 @@ class App extends Component {
         super(props);
         this.state = {
             clientConnected: false,
+            trafficLightConnected: false,
             messages: [],
         }
     }
 
     onMessageReceive = (msg, topic) => {
-        console.log(`new message received for topic ${topic} - message: ${msg}`);
-        this.setState({ messages: msg });
+        console.log(`new message received for topic "${topic}" - message: ${msg}`);
+        if (topic === "/topic/trafficlight") {
+            this.setState({ trafficLightConnected: msg });
+        }
+        if (topic === "/topic/all") {
+            this.setState({ messages: msg });
+        }
     };
 
     sendMessage = (msg, selfMsg) => {
         try {
-            this.clientRef.sendMessage("/app/all", JSON.stringify(selfMsg));
+            this.clientRef.sendMessage("/traffik/all", JSON.stringify(selfMsg));
             return true;
         } catch(e) {
             return false;
@@ -41,7 +47,7 @@ class App extends Component {
             <div>
                 <h1>Traffik</h1>
                 <BackendConnection isConnected={this.state.clientConnected}/>
-                <SockJsClient url={ wsSourceUrl } topics={["/topic/all"]}
+                <SockJsClient url={ wsSourceUrl } topics={["/topic/all", "/topic/trafficlight"]}
                     onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
                     onConnect={ () => { this.setState({ clientConnected: true }) } }
                     onDisconnect={ () => { this.setState({ clientConnected: false }) } }

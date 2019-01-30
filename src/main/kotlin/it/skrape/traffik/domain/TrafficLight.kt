@@ -6,7 +6,7 @@ interface TrafficLight {
 
     fun isConnected(): Boolean = get() != null
 
-    fun action(color: Color, action: Action)
+    fun action(light: Pair<Color, Action>)
 
     fun get(): UsbDevice?
 

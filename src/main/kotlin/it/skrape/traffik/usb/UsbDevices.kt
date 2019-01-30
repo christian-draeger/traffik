@@ -12,10 +12,24 @@ class UsbDevices : TrafficLight {
 
     private val logger = KotlinLogging.logger {}
 
-    override fun action(color: Color, action: Action) {
+    override fun action(light: Pair<Color, Action>) {
 
-        logger.info { "try to switch $color traffic light $action" }
+        logger.info { "try to switch traffic light ${light.first} ${light.second}" }
 
+        when (light) {
+            Pair(Color.RED, Action.ON) -> println("turn red light on")
+            Pair(Color.RED, Action.BLINK) -> println("turn red light blink")
+            Pair(Color.RED, Action.OFF) -> println("turn red light off")
+            Pair(Color.YELLOW, Action.ON) -> println("turn yellow light on")
+            Pair(Color.YELLOW, Action.BLINK) -> println("turn yellow light blink")
+            Pair(Color.YELLOW, Action.OFF) -> println("turn yellow light off")
+            Pair(Color.GREEN, Action.ON) -> println("turn green light on")
+            Pair(Color.GREEN, Action.BLINK) -> println("turn green light blink")
+            Pair(Color.GREEN, Action.OFF) -> println("turn green light off")
+        }
+    }
+
+    private fun redLightOn() {
         val device = get()
 
         if (device != null) {

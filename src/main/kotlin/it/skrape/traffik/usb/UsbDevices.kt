@@ -5,6 +5,7 @@ import it.skrape.traffik.domain.Color
 import it.skrape.traffik.domain.TrafficLight
 import mu.KotlinLogging
 import javax.usb.UsbDevice
+import javax.usb.UsbEndpoint
 import javax.usb.UsbHostManager
 import javax.usb.UsbHub
 
@@ -17,7 +18,7 @@ class UsbDevices : TrafficLight {
         logger.info { "try to switch traffic light ${light.first} ${light.second}" }
 
         when (light) {
-            Pair(Color.RED, Action.ON) -> println("turn red light on")
+            Pair(Color.RED, Action.ON) -> redLightOn()
             Pair(Color.RED, Action.BLINK) -> println("turn red light blink")
             Pair(Color.RED, Action.OFF) -> println("turn red light off")
             Pair(Color.YELLOW, Action.ON) -> println("turn yellow light on")
@@ -36,12 +37,24 @@ class UsbDevices : TrafficLight {
             val usbInterface = device.activeUsbConfiguration.getUsbInterface(0)
             usbInterface.claim { true }
 
+            val usbEndpoints = usbInterface.usbEndpoints
+            val get0:UsbEndpoint = usbEndpoints.get(0) as UsbEndpoint
+            val get1:UsbEndpoint = usbEndpoints.get(1) as UsbEndpoint
+            println(get0.usbEndpointDescriptor)
+            println(get1.usbEndpointDescriptor)
+            usbEndpoints.forEach{
+                println(it.toString())
+            }
+
             val endpoint = usbInterface.getUsbEndpoint(0x81.toByte())
             val pipe = endpoint.usbPipe
             pipe.open()
+            val createUsbIrp = pipe.createUsbIrp()
+            createUsbIrp.setData(byteArrayOf(0x01), 0, 2)
+            createUsbIrp.complete()
 
             try {
-                pipe.syncSubmit(byteArrayOf(0x28.toByte()))
+                pipe.syncSubmit(createUsbIrp)
             } finally {
                 pipe.close()
             }

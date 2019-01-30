@@ -10,7 +10,7 @@ class App extends Component {
         this.state = {
             clientConnected: false,
             trafficLightConnected: false,
-            messages: [],
+            jobs: [],
         }
     }
 
@@ -20,7 +20,7 @@ class App extends Component {
             this.setState({ trafficLightConnected: msg });
         }
         if (topic === "/topic/all") {
-            this.setState({ messages: msg });
+            this.setState(prevState => ({ jobs: [...prevState.jobs, msg] }));
         }
     };
 
@@ -37,7 +37,7 @@ class App extends Component {
         fetch("/history")
             .then(response => response.json())
             .then((data) => {
-                this.setState({ messages: data })
+                this.setState({ jobs: data })
             });
     }
 
@@ -53,7 +53,7 @@ class App extends Component {
                     onDisconnect={ () => { this.setState({ clientConnected: false }) } }
                     debug={ false }/>
                 <ul>
-                    {this.state.messages.map(job => <JobResult job={job}/>)}
+                    {this.state.jobs.map(job => <JobResult job={job}/>)}
                 </ul>
                 <button onClick={() => this.sendMessage({status: "OK"}, {status: "OK"})}>Add</button>
             </div>

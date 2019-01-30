@@ -14,15 +14,16 @@ class JobConfigMessageController(val template: SimpMessagingTemplate) {
     val messageRepository = mutableListOf(mapOf("status" to "OK"), mapOf("status" to "ERROR"))
 
     @MessageMapping("/all")
-    fun post(@Payload message: Map<String, String>): List<Map<String, String>> {
+    fun post(@Payload message: Map<String, String>): Map<String, String> {
         messageRepository.add(message)
-        return messageRepository
+        return message
     }
 
     @GetMapping("/add")
     fun add(@RequestParam status: String) {
-        messageRepository.add(mapOf("status" to status))
-        template.convertAndSend("/topic/all", messageRepository)
+        val message = mapOf("status" to status)
+        messageRepository.add(message)
+        template.convertAndSend("/topic/all", message)
     }
 
     @GetMapping("/history")

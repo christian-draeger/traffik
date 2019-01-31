@@ -5,7 +5,6 @@ import it.skrape.traffik.domain.Color
 import it.skrape.traffik.domain.TrafficLight
 import mu.KotlinLogging
 import javax.usb.UsbDevice
-import javax.usb.UsbEndpoint
 import javax.usb.UsbHostManager
 import javax.usb.UsbHub
 
@@ -37,21 +36,16 @@ class UsbDevices : TrafficLight {
             val usbInterface = device.activeUsbConfiguration.getUsbInterface(0)
             usbInterface.claim { true }
 
-            val usbEndpoints = usbInterface.usbEndpoints
-            val get0:UsbEndpoint = usbEndpoints.get(0) as UsbEndpoint
-            val get1:UsbEndpoint = usbEndpoints.get(1) as UsbEndpoint
-            println(get0.usbEndpointDescriptor)
-            println(get1.usbEndpointDescriptor)
-            usbEndpoints.forEach{
-                println(it.toString())
-            }
+            val endpointIn = usbInterface.getUsbEndpoint(0x81.toByte())
+            val endpointOut = usbInterface.getUsbEndpoint(0x02.toByte())
+            println("IN: " + endpointIn.usbEndpointDescriptor)
+            println("OUT: " + endpointOut.usbEndpointDescriptor)
 
-            val endpoint = usbInterface.getUsbEndpoint(0x81.toByte())
-            val pipe = endpoint.usbPipe
+            val pipe = endpointIn.usbPipe
             pipe.open()
             val createUsbIrp = pipe.createUsbIrp()
             createUsbIrp.setData(byteArrayOf(0x01), 0, 2)
-            createUsbIrp.complete()
+            //createUsbIrp.complete()
 
             try {
                 pipe.syncSubmit(createUsbIrp)

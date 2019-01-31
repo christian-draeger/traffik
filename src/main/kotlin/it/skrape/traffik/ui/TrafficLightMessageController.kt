@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller
 class TrafficLightMessageController(val template: SimpMessagingTemplate) {
 
     @Scheduled(fixedDelay = 5000)
-    fun sendMessage(msg: Map<String, String>) {
+    fun notifyUi() {
         val trafficLight: TrafficLight = UsbDevices()
-        template.convertAndSend("/topic/trafficlight", trafficLight.isConnected())
+        if (trafficLight.isConnected()) {
+            template.convertAndSend("/topic/trafficlight", true)
+        }
     }
 }

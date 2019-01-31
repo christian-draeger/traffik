@@ -19,12 +19,17 @@ class StaticTemplateController {
                 head {
                     title { +"Traffik" }
                     meta(charset = "utf-8")
+                    link {
+                        href = "https://fonts.googleapis.com/css?family=Raleway"
+                        rel = "stylesheet"
+                    }
                     style {
                         unsafe {
                             raw("""
-                                body {
-                                    background-color: black;
-                                    color: darkgrey;
+                                html {
+                                    font-family: 'Raleway', sans-serif;
+                                    background-color: #292929;
+                                    color: #bbb;
                                 }
                             """.trimIndent())
                         }

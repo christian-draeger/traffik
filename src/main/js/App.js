@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import SockJsClient from 'react-stomp';
+import 'react-toastify/dist/ReactToastify.min.css';
 import JobResult from "./components/JobResult";
 import Indicators from "./components/indicators/IndicatorSection";
 import FontawesomeAdapter from "./FontawesomeAdapter";
+import {ToastContainer} from "react-toastify";
 
 class App extends Component {
 
@@ -61,6 +63,7 @@ class App extends Component {
                     backendConnected={this.state.clientConnected}
                     trafficLightConnected={this.state.trafficLightConnected}
                 />
+                <ToastContainer />
             </div>
         );
     }

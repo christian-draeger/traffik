@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const StyledConnectionIndicator = styled.span`
     border-radius: 50%;
@@ -12,9 +13,16 @@ const StyledConnectionIndicator = styled.span`
 
 const ConnectionIndicator = ({type, isConnected}) => {
     if (type === "backend") {
-        return <StyledConnectionIndicator connected={isConnected}>B</StyledConnectionIndicator>
+        return (
+            <StyledConnectionIndicator connected={isConnected}>
+                <FontAwesomeIcon icon="server" />
+            </StyledConnectionIndicator>)
     }
-    return <StyledConnectionIndicator connected={isConnected}>T</StyledConnectionIndicator>
+    return (
+        <StyledConnectionIndicator connected={isConnected}>
+            <FontAwesomeIcon icon="traffic-light" />
+        </StyledConnectionIndicator>
+    )
 };
 
 export default ConnectionIndicator;

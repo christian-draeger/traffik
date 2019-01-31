@@ -2,11 +2,13 @@ import React, {Component} from "react";
 import SockJsClient from 'react-stomp';
 import JobResult from "./components/JobResult";
 import Indicators from "./components/indicators/IndicatorSection";
+import FontawesomeAdapter from "./FontawesomeAdapter";
 
 class App extends Component {
 
     constructor(props) {
         super(props);
+        new FontawesomeAdapter();
         this.state = {
             clientConnected: false,
             trafficLightConnected: false,

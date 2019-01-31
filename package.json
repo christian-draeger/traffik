@@ -8,6 +8,11 @@
     "postwatch": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.13",
+    "@fortawesome/free-brands-svg-icons": "^5.7.0",
+    "@fortawesome/free-regular-svg-icons": "^5.7.0",
+    "@fortawesome/free-solid-svg-icons": "^5.7.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",

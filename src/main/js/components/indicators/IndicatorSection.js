@@ -1,25 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-import BackendConnection from "./BackEndConnectionIndicator";
-import TrafficLightConnection from "./TrafficLightConnectionIndicator";
+import ConnectionIndicator from "./ConnectionIndicator";
 
 const StyledIndicatorSectionWrapper = styled.div`
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 100vw;
+    text-align: right;
 `;
 
 const StyledIndicatorSection = styled.div`
     position: relative;
-    width: 100%;
+    padding: 15px;
 `;
 
 const Indicators = ({backendConnected, trafficLightConnected}) => {
     return (
         <StyledIndicatorSectionWrapper>
             <StyledIndicatorSection>
-                <BackendConnection isConnected={backendConnected}/>
-                <TrafficLightConnection isConnected={trafficLightConnected}/>
+                <ConnectionIndicator type="backend" isConnected={backendConnected}/>
+                <ConnectionIndicator type="light" isConnected={trafficLightConnected}/>
             </StyledIndicatorSection>
         </StyledIndicatorSectionWrapper>
     )

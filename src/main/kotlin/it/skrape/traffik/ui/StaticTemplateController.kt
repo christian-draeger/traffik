@@ -19,6 +19,16 @@ class StaticTemplateController {
                 head {
                     title { +"Traffik" }
                     meta(charset = "utf-8")
+                    style {
+                        unsafe {
+                            raw("""
+                                body {
+                                    background-color: black;
+                                    color: darkgrey;
+                                }
+                            """.trimIndent())
+                        }
+                    }
                 }
 
                 body {

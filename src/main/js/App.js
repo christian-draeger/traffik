@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import SockJsClient from 'react-stomp';
 import JobResult from "./components/JobResult";
 import Indicators from "./components/indicators/IndicatorSection";
-import styled from "styled-components";
 
 class App extends Component {
 

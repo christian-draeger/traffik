@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import SockJsClient from 'react-stomp';
-import BackendConnection from "./components/indicators/BackEndConnectionIndicator";
 import JobResult from "./components/JobResult";
+import Indicators from "./components/indicators/IndicatorSection";
+import styled from "styled-components";
 
 class App extends Component {
 
@@ -24,9 +25,9 @@ class App extends Component {
         }
     };
 
-    sendMessage = (msg, selfMsg) => {
+    sendMessage = (msg) => {
         try {
-            this.clientRef.sendMessage("/traffik/all", JSON.stringify(selfMsg));
+            this.clientRef.sendMessage("/traffik/all", JSON.stringify(msg));
             return true;
         } catch(e) {
             return false;
@@ -46,7 +47,6 @@ class App extends Component {
         return (
             <div>
                 <h1>Traffik</h1>
-                <BackendConnection isConnected={this.state.clientConnected}/>
                 <SockJsClient url={ wsSourceUrl } topics={["/topic/all", "/topic/trafficlight"]}
                     onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
                     onConnect={ () => { this.setState({ clientConnected: true }) } }
@@ -55,7 +55,11 @@ class App extends Component {
                 <ul>
                     {this.state.jobs.map(job => <JobResult job={job}/>)}
                 </ul>
-                <button onClick={() => this.sendMessage({status: "OK"}, {status: "OK"})}>Add</button>
+                <button onClick={() => this.sendMessage({status: "OK"})}>Add</button>
+                <Indicators
+                    backendConnected={this.state.clientConnected}
+                    trafficLightConnected={this.state.trafficLightConnected}
+                />
             </div>
         );
     }

@@ -23,6 +23,8 @@ class StaticTemplateController {
                         href = "https://fonts.googleapis.com/css?family=Raleway"
                         rel = "stylesheet"
                     }
+                    link(rel = "shortcut icon", href = "/logo-green.png")
+                    link(rel = "stylesheet", href = "/dist/bundle.css")
                     style {
                         unsafe {
                             raw("""

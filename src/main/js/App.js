@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import SockJsClient from 'react-stomp';
-import 'react-toastify/dist/ReactToastify.min.css';
-import JobResult from "./components/JobResult";
+import JobOverview from "./components/overview/JobOverview";
 import Indicators from "./components/indicators/IndicatorSection";
 import FontawesomeAdapter from "./FontawesomeAdapter";
-import {ToastContainer} from "react-toastify";
+import Toaster, {alertError, alertSuccess} from "./components/notifications/Toaster";
 
 class App extends Component {
 
@@ -18,6 +17,15 @@ class App extends Component {
         }
     }
 
+    onBackendConnect = () => {
+        this.setState({ clientConnected: true });
+    };
+
+    onBackendDisconnect = () => {
+        this.setState({ clientConnected: false });
+        alertError("Backend Disconnected");
+    };
+
     onMessageReceive = (msg, topic) => {
         console.log(`new message received for topic "${topic}" - message: ${msg}`);
         if (topic === "/topic/trafficlight") {
@@ -25,6 +33,7 @@ class App extends Component {
         }
         if (topic === "/topic/all") {
             this.setState(prevState => ({ jobs: [...prevState.jobs, msg] }));
+            alertSuccess("Job successfully added.");
         }
     };
 
@@ -52,18 +61,17 @@ class App extends Component {
                 <h1>Traffik</h1>
                 <SockJsClient url={ wsSourceUrl } topics={["/topic/all", "/topic/trafficlight"]}
                     onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
-                    onConnect={ () => { this.setState({ clientConnected: true }) } }
-                    onDisconnect={ () => { this.setState({ clientConnected: false }) } }
+                    onConnect={ this.onBackendConnect }
+                    onDisconnect={ this.onBackendDisconnect }
                     debug={ false }/>
-                <ul>
-                    {this.state.jobs.map(job => <JobResult job={job}/>)}
-                </ul>
+
+                <JobOverview jobs={this.state.jobs}/>
                 <button onClick={() => this.sendMessage({status: "OK"})}>Add</button>
                 <Indicators
                     backendConnected={this.state.clientConnected}
                     trafficLightConnected={this.state.trafficLightConnected}
                 />
-                <ToastContainer />
+                <Toaster/>
             </div>
         );
     }

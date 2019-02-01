@@ -39,6 +39,9 @@ class StaticTemplateController {
                 }
 
                 body {
+                    noScript {
+                        +"You need to enable JavaScript to run this app."
+                    }
                     div {
                         id = "root"
                     }

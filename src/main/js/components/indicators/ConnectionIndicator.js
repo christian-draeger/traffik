@@ -4,8 +4,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const StyledConnectionIndicator = styled.span`
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 20px;
     padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
     margin: 5px;
     color: white;
     background-color: ${(props) => (props.connected ? "green" : "darkgrey")};

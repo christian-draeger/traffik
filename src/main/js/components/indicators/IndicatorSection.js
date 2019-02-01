@@ -6,12 +6,14 @@ const StyledIndicatorSectionWrapper = styled.div`
     position: absolute;
     bottom: 0;
     width: 100vw;
-    text-align: right;
+    pointer-events: none;
 `;
 
 const StyledIndicatorSection = styled.div`
     position: relative;
     padding: 15px;
+    display: flex;
+    flex-direction: row-reverse;
 `;
 
 const Indicators = ({backendConnected, trafficLightConnected}) => {

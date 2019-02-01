@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import Job from "./Job";
 
 const StyledJobOverview = styled.div`
     padding: 5px;
     width: 100%;
-    max-width: 800px;
 `;
 
-const JobOverview = ({jobs}) => {
+const JobOverview = ({jobs, onAdd}) => {
     return (
         <StyledJobOverview>
-            {jobs.map(job => <li>{job.status}</li>)}
+            {jobs.map(job => <Job job={job}/>)}
+            <button onClick={() => onAdd({status: "OK"})}>Add</button>
         </StyledJobOverview>
     )
 };

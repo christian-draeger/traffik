@@ -11,8 +11,10 @@ class TrafficLightMessageController(val template: SimpMessagingTemplate) {
     @Scheduled(fixedDelay = 5000)
     fun notifyUi() {
         val trafficLight: TrafficLight = AmpelDevice()
+        var isConnected = false
         if (trafficLight.isConnected()) {
-            template.convertAndSend("/topic/trafficlight", true)
+            isConnected = true
         }
+        template.convertAndSend("/topic/trafficlight", isConnected)
     }
 }

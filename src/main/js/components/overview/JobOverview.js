@@ -11,7 +11,11 @@ const JobOverview = ({jobs, onAdd}) => {
     return (
         <StyledJobOverview>
             {jobs.map(job => <Job job={job}/>)}
-            <button onClick={() => onAdd({status: "OK"})}>Add</button>
+            <button onClick={() => onAdd({
+                displayName: "display Name",
+                url: "http://google.de",
+                status: "NOT_AVAILABLE"
+            })}>Add</button>
         </StyledJobOverview>
     )
 };

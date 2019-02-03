@@ -1,12 +1,12 @@
-import React, {Fragment} from "react";
-import Input from "./Input";
+import React from "react";
 
 const Job = ({job}) => {
     return (
-        <Fragment>
-            <Input/>
-            <li>{job.status}</li>
-        </Fragment>
+        <div>
+            <p>{job.displayName}</p>
+            <p>{job.url}</p>
+            <p>{job.status}</p>
+        </div>
     )
 };
 

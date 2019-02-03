@@ -28,8 +28,9 @@ class App extends Component {
     };
 
     onMessageReceive = (msg, topic) => {
-        console.log(`new message received for topic "${topic}" - message: ${msg}`);
+        console.log(`new message received for topic "${topic}"`);
         if (topic === "/topic/trafficlight") {
+            console.log(`traffic-light message was: ${msg}`);
             this.setState({ trafficLightConnected: msg });
         }
         if (topic === "/topic/all") {

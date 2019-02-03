@@ -11,23 +11,40 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class JobConfigMessageController(val template: SimpMessagingTemplate) {
 
-    val messageRepository = mutableListOf(mapOf("status" to "OK"), mapOf("status" to "ERROR"))
+    val jobRepository = mutableListOf<JobMessage>()
 
     @MessageMapping("/all")
-    fun post(@Payload message: Map<String, String>): Map<String, String> {
-        messageRepository.add(message)
+    fun post(@Payload message: JobMessage): JobMessage {
+        jobRepository.add(message)
         return message
     }
 
     @GetMapping("/add")
-    fun add(@RequestParam status: String) {
-        val message = mapOf("status" to status)
-        messageRepository.add(message)
+    fun add(
+            @RequestParam displayName: String,
+            @RequestParam url: String,
+            @RequestParam status: JobMessage.Status
+    ) {
+        val message = JobMessage(displayName, url, status)
+        jobRepository.add(message)
         template.convertAndSend("/topic/all", message)
     }
 
     @GetMapping("/history")
-    fun get(): List<Map<String, String>> {
-        return messageRepository
+    fun get(): List<JobMessage> {
+        return jobRepository
+    }
+}
+
+data class JobMessage(
+        val displayName: String,
+        val url: String,
+        val status: Status = Status.NOT_AVAILABLE
+) {
+    enum class Status {
+        SUCCESS,
+        ERROR,
+        BUILDING,
+        NOT_AVAILABLE
     }
 }

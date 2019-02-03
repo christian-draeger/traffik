@@ -1,13 +1,19 @@
-import React from "react";
+import React, {Fragment} from "react";
 import Job from "./Job";
-import OverviewHeader from "./OverviewHeader";
+import ConfigInputSection from "../form/ConfigInputSection";
+import styled from "styled-components";
 
-const JobOverview = ({jobs, onAdd}) => {
+const H1 = styled.h1`
+    text-align: center;
+`;
+
+const JobOverview = ({jobs, onAdd, onStore, addButtonVisible}) => {
     return (
-        <div>
-            <OverviewHeader onAdd={onAdd}/>
+        <Fragment>
+            <H1>Job Overview</H1>
             {jobs.map(job => <Job job={job}/>)}
-        </div>
+            <ConfigInputSection onAdd={onAdd} onStore={onStore} addButtonVisible={addButtonVisible}/>
+        </Fragment>
     )
 };
 

@@ -1,12 +1,6 @@
-import React from "react";
 import styled from "styled-components";
+import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
-const StyledOverviewHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
 
 const StyledAddButton = styled.div`
     padding: 5px;
@@ -27,21 +21,25 @@ const StyledAddButton = styled.div`
     }
 `;
 
-const OverviewHeader = ({onAdd}) => {
-    return (
-        <StyledOverviewHeader>
-            <h1>Job Overview</h1>
-            <StyledAddButton onClick={() => onAdd({
-                type: "CREATE",
-                job: {
-                    displayName: "display Name",
-                    url: "http://google.de"
-                }
-            })}>
+const Button = ({onAdd, onStore, addButtonVisible}) => {
+    if (addButtonVisible) {
+        return (
+            <StyledAddButton onClick={onAdd}>
                 <FontAwesomeIcon icon="plus"/>
             </StyledAddButton>
-        </StyledOverviewHeader>
+        )
+    }
+    return (
+        <StyledAddButton onClick={() => onStore({
+            type: "CREATE",
+            job: {
+                displayName: "display Name",
+                url: "http://google.de"
+            }
+        })}>
+            <FontAwesomeIcon icon="save"/>
+        </StyledAddButton>
     )
 };
 
-export default OverviewHeader;
+export default Button;

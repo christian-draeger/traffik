@@ -5,7 +5,8 @@ import {
     faCheckCircle,
     faExclamationCircle,
     faTrashAlt,
-    faPlus
+    faPlus,
+    faSave
 } from "@fortawesome/free-solid-svg-icons";
 
 export default class FontawesomeAdapter {
@@ -16,7 +17,8 @@ export default class FontawesomeAdapter {
             faCheckCircle,
             faExclamationCircle,
             faTrashAlt,
-            faPlus
+            faPlus,
+            faSave
         );
     }
 }

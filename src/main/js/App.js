@@ -15,6 +15,7 @@ class App extends Component {
             clientConnected: false,
             trafficLightConnected: false,
             jobs: [],
+            addButtonVisible: true,
         }
     }
 
@@ -25,6 +26,10 @@ class App extends Component {
     onBackendDisconnect = () => {
         this.setState({ clientConnected: false });
         alertError("Backend Disconnected");
+    };
+
+    onAdd = () => {
+        this.setState({ addButtonVisible: false })
     };
 
     onMessageReceive = (msg, topic) => {
@@ -40,6 +45,7 @@ class App extends Component {
     sendMessage = (msg) => {
         try {
             this.clientRef.sendMessage("/traffik/all", JSON.stringify(msg));
+            this.setState({ addButtonVisible: true });
             return true;
         } catch(e) {
             return false;
@@ -73,7 +79,12 @@ class App extends Component {
                     backendConnected={this.state.clientConnected}
                     trafficLightConnected={this.state.trafficLightConnected}
                 />
-                <JobOverview jobs={this.state.jobs} onAdd={this.sendMessage}/>
+                <JobOverview
+                    jobs={this.state.jobs}
+                    onAdd={this.onAdd}
+                    onStore={this.sendMessage}
+                    addButtonVisible={this.state.addButtonVisible}
+                />
 
                 <Toaster/>
             </AppWrapper>

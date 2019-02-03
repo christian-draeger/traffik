@@ -4,7 +4,7 @@ import ConnectionIndicator from "./ConnectionIndicator";
 
 const StyledIndicatorSectionWrapper = styled.div`
     position: absolute;
-    left: 0;
+    right: 0;
     width: 8%;
     height: 100%;
     display: flex;

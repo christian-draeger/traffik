@@ -48,6 +48,11 @@ class App extends Component {
         }
     };
 
+    componentDidCatch(error, errorInfo) {
+        console.log(`error: ${error} \n ${errorInfo}`);
+        alertError("Something went wrong.");
+    }
+
     componentWillMount() {
         fetch("/history")
             .then(response => response.json())

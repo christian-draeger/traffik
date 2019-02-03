@@ -28,9 +28,7 @@ class App extends Component {
     };
 
     onMessageReceive = (msg, topic) => {
-        console.log(`new message received for topic "${topic}"`);
         if (topic === "/topic/trafficlight") {
-            console.log(`traffic-light message was: ${msg}`);
             this.setState({ trafficLightConnected: msg });
         }
         if (topic === "/topic/all") {
@@ -65,7 +63,6 @@ class App extends Component {
         const wsSourceUrl = `${window.location.protocol}//${window.location.host}/handler`;
         return (
             <AppWrapper>
-                <h1>Traffik</h1>
                 <SockJsClient url={ wsSourceUrl } topics={["/topic/all", "/topic/trafficlight"]}
                     onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
                     onConnect={ this.onBackendConnect }

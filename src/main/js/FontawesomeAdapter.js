@@ -1,7 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faTrafficLight, faServer, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
-import { faBell, faBellSlash } from '@fortawesome/free-regular-svg-icons'
+import { faBell, faBellSlash, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 
 export default class FontawesomeAdapter {
     constructor() {
@@ -12,7 +12,8 @@ export default class FontawesomeAdapter {
             faBellSlash,
             faServer,
             faCheckCircle,
-            faExclamationCircle
+            faExclamationCircle,
+            faTrashAlt
         );
     }
 }

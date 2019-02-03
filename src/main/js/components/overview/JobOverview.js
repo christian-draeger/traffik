@@ -10,6 +10,7 @@ const StyledJobOverview = styled.div`
 const JobOverview = ({jobs, onAdd}) => {
     return (
         <StyledJobOverview>
+            <h1>Job Overview</h1>
             {jobs.map(job => <Job job={job}/>)}
             <button onClick={() => onAdd({
                 displayName: "display Name",

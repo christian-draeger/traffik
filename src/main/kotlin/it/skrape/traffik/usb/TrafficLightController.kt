@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/traffic-light")
 class TrafficLightController {
 
-    val trafficLight: TrafficLight = UsbDevices()
+    val trafficLight: TrafficLight = AmpelDevice()
 
     @GetMapping("/available")
     fun isDeviceAvailable(): Boolean {

@@ -21,6 +21,12 @@
             <name>jcenter</name>
             <url>https://jcenter.bintray.com</url>
         </repository>
+        <!-- for rxUsb -->
+        <repository>
+            <id>eraga</id>
+            <name>eraga</name>
+            <url>http://nexus.eraga.net/content/repositories/public-releases/</url>
+        </repository>
     </repositories>
 
     <properties>
@@ -60,9 +66,9 @@
             <version>1.6.22</version>
         </dependency>
         <dependency>
-            <groupId>org.usb4java</groupId>
-            <artifactId>usb4java-javax</artifactId>
-            <version>1.3.0</version>
+            <groupId>net.eraga.rxusb</groupId>
+            <artifactId>libusb</artifactId>
+            <version>1.0.5</version>
         </dependency>
 
         <dependency>

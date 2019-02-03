@@ -1,14 +1,12 @@
 package it.skrape.traffik.domain
 
-import javax.usb.UsbDevice
-
 interface TrafficLight {
 
-    fun isConnected(): Boolean = get() != null
+    fun isConnected(): Boolean
 
     fun action(light: Pair<Color, Action>)
 
-    fun get(): UsbDevice?
+    fun get(): net.eraga.rxusb.UsbDevice
 
 }
 

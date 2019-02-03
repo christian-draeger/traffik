@@ -1,7 +1,6 @@
-package it.skrape.traffik.ui
+package it.skrape.traffik.usb
 
 import it.skrape.traffik.domain.TrafficLight
-import it.skrape.traffik.usb.UsbDevices
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Controller
@@ -11,7 +10,7 @@ class TrafficLightMessageController(val template: SimpMessagingTemplate) {
 
     @Scheduled(fixedDelay = 5000)
     fun notifyUi() {
-        val trafficLight: TrafficLight = UsbDevices()
+        val trafficLight: TrafficLight = AmpelDevice()
         if (trafficLight.isConnected()) {
             template.convertAndSend("/topic/trafficlight", true)
         }

@@ -14,14 +14,14 @@ const StyledAddButton = styled.div`
     height: 50px;
     display: flex;
     font-size: 35px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     align-items: center;
     justify-content: center;
     transition: all .5s ease;
     &:hover {
       background-color: #343434;
-      border-color: #df8800;
+      border-bottom: 1px solid #df8800;
+      border-radius: 10px;
       color: #df8800;
       cursor: pointer;
     }

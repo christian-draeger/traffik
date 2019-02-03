@@ -34,8 +34,8 @@
     "jest-create-mock-instance": "1.1.0",
     "jest-dom": "1.12.0",
     "jest-junit": "5.1.0",
-    "sass": "^1.14.3",
-    "parcel-bundler": "1.11.0"
+    "parcel-bundler": "1.11.0",
+    "sass": "^1.14.3"
   },
   "jest": {
     "collectCoverageFrom": [

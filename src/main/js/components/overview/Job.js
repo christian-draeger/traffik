@@ -6,9 +6,14 @@ const StyledJob = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 10px 0;
+    padding: 10px;
     border-bottom: 1px solid #ccc;
+    transition: all .5s ease;
+    &:hover {
+      background-color: #343434;
+      border-color: #df8800;
+      border-radius: 10px;
+    }
 `;
 
 const StyledDisplayName = styled.span`
@@ -21,6 +26,14 @@ const StyledStatus = styled.span`
     height: 30px;
     background-color: ${(props) => getStatusColor(props.status)};
 `;
+
+const StyledRemove = styled(FontAwesomeIcon)`
+    &:hover {
+      cursor: pointer;
+      color: #df8800;
+    }
+`;
+
 
 const getStatusColor = (status) => {
     let color;
@@ -49,7 +62,7 @@ const Job = ({job}) => {
             <StyledStatus status={job.status}/>
             <StyledDisplayName>{job.displayName}</StyledDisplayName>
             <span>{job.url}</span>
-            <span><FontAwesomeIcon icon="server" /></span>
+            <StyledRemove icon="trash-alt" />
         </StyledJob>
     )
 };

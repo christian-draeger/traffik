@@ -1,19 +1,22 @@
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faTrafficLight, faServer, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
-import { faBell, faBellSlash, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+    faTrafficLight,
+    faServer,
+    faCheckCircle,
+    faExclamationCircle,
+    faTrashAlt,
+    faPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class FontawesomeAdapter {
     constructor() {
         library.add(
-            fab,
             faTrafficLight,
-            faBell,
-            faBellSlash,
             faServer,
             faCheckCircle,
             faExclamationCircle,
-            faTrashAlt
+            faTrashAlt,
+            faPlus
         );
     }
 }

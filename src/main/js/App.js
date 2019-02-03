@@ -69,12 +69,12 @@ class App extends Component {
                     onDisconnect={ this.onBackendDisconnect }
                     debug={ false }/>
 
-                <JobOverview jobs={this.state.jobs} onAdd={this.sendMessage}/>
-
                 <Indicators
                     backendConnected={this.state.clientConnected}
                     trafficLightConnected={this.state.trafficLightConnected}
                 />
+                <JobOverview jobs={this.state.jobs} onAdd={this.sendMessage}/>
+
                 <Toaster/>
             </AppWrapper>
         );

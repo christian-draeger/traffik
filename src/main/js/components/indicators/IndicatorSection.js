@@ -4,25 +4,21 @@ import ConnectionIndicator from "./ConnectionIndicator";
 
 const StyledIndicatorSectionWrapper = styled.div`
     position: absolute;
-    bottom: 0;
-    width: 100vw;
-    pointer-events: none;
-`;
-
-const StyledIndicatorSection = styled.div`
-    position: relative;
-    padding: 15px;
+    left: 0;
+    width: 8%;
+    height: 100%;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    pointer-events: none;
 `;
 
 const Indicators = ({backendConnected, trafficLightConnected}) => {
     return (
         <StyledIndicatorSectionWrapper>
-            <StyledIndicatorSection>
-                <ConnectionIndicator type="backend" isConnected={backendConnected}/>
-                <ConnectionIndicator type="light" isConnected={trafficLightConnected}/>
-            </StyledIndicatorSection>
+            <ConnectionIndicator type="backend" isConnected={backendConnected}/>
+            <ConnectionIndicator type="light" isConnected={trafficLightConnected}/>
         </StyledIndicatorSectionWrapper>
     )
 };

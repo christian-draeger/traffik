@@ -32,6 +32,11 @@ class StaticTemplateController {
                                     font-family: 'Raleway', sans-serif;
                                     background-color: #292929;
                                     color: #bbb;
+                                    min-width: 450px;
+                                }
+                                body {
+                                    margin: 0;
+                                    padding: 0;
                                 }
                             """.trimIndent())
                         }

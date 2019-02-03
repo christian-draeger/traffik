@@ -36,7 +36,10 @@ export const alertError = (message) => {
 };
 
 const Toaster = () => {
-    return <ToastContainer />
+    return <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+    />
 };
 
 export default Toaster;

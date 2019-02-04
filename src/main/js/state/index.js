@@ -10,6 +10,13 @@ export const overmind = new Overmind({
         addButtonVisible: true,
     },
     actions : {
+        getHistory: ({state}) => {
+            fetch("/history")
+                .then(response => response.json())
+                .then((data) => {
+                    state.jobs = data;
+                });
+        },
         onBackendConnect: ({state}) => {
             state.clientConnected = true;
         },

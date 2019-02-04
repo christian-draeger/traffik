@@ -12,18 +12,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         new FontawesomeAdapter();
-        this.state = {
-            jobs: [],
-        }
     }
 
     onMessageReceive = (msg, topic) => {
-        const { actions } = this.props.overmind;
+        const { actions, state } = this.props.overmind;
         if (topic === "/topic/trafficlight") {
             actions.onTrafficLightEvent(msg)
         }
         if (topic === "/topic/all") {
-            this.setState(prevState => ({ jobs: [...prevState.jobs, msg] }));
+            state.jobs.push(msg);
             alertSuccess("Job successfully added.");
         }
     };
@@ -44,12 +41,9 @@ class App extends Component {
         console.log(`error: ${error} \n ${errorInfo}`);
     }
 
-    componentWillMount() {
-        fetch("/history")
-            .then(response => response.json())
-            .then((data) => {
-                this.setState({ jobs: data })
-            });
+    componentDidMount() {
+        const { actions, state } = this.props.overmind;
+        actions.getHistory(state);
     }
 
     render() {
@@ -64,10 +58,7 @@ class App extends Component {
                     debug={ false }/>
 
                 <Indicators/>
-                <JobOverview
-                    jobs={this.state.jobs}
-                    onStore={this.sendMessage}
-                />
+                <JobOverview onStore={this.sendMessage} />
                 <Toaster/>
             </AppWrapper>
         );

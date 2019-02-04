@@ -26,10 +26,8 @@ class App extends Component {
     };
 
     sendMessage = (msg) => {
-        const { state } = this.props.overmind;
         try {
             this.clientRef.sendMessage("/traffik/all", JSON.stringify(msg));
-            state.addButtonVisible = true;
             return true;
         } catch(e) {
             return false;
@@ -42,8 +40,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const { actions, state } = this.props.overmind;
-        actions.getHistory(state);
+        this.props.overmind.actions.getJobs();
     }
 
     render() {

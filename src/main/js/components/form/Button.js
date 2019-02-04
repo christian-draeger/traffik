@@ -31,13 +31,16 @@ const Button = ({onStore, overmind}) => {
         )
     }
     return (
-        <StyledAddButton onClick={() => onStore({
-            type: "CREATE",
-            job: {
-                displayName: "display Name",
-                url: "http://google.de"
-            }
-        })}>
+        <StyledAddButton onClick={() => {
+            onStore({
+                type: "CREATE",
+                job: {
+                    displayName: "display Name",
+                    url: "http://google.de"
+                }
+            });
+            overmind.state.addButtonVisible = true;
+        }}>
             <FontAwesomeIcon icon="save"/>
         </StyledAddButton>
     )

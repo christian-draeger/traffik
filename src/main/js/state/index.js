@@ -9,13 +9,17 @@ export const overmind = new Overmind({
         jobs: [],
         addButtonVisible: true,
     },
+    effects: {
+        history: {
+            getJobs() {
+                return fetch("/history")
+                    .then(response => response.json())
+            }
+        }
+    },
     actions : {
-        getHistory: ({state}) => {
-            fetch("/history")
-                .then(response => response.json())
-                .then((data) => {
-                    state.jobs = data;
-                });
+        getJobs: async ({ state, effects }) => {
+            state.jobs = await effects.history.getJobs()
         },
         onBackendConnect: ({state}) => {
             state.clientConnected = true;

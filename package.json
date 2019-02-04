@@ -6,13 +6,16 @@
     "test": "jest",
     "postbundle": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1",
     "watch": "parcel watch src/main/js/index.js --out-dir target/classes/static/dist --out-file bundle --public-url /dist",
-    "postwatch": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1"
+    "postwatch": "date-now --format='DD.MM.YYYY-HH:mm:ss (A)' | cowthink $1",
+    "devtools": "overmind-devtools"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.13",
     "@fortawesome/free-solid-svg-icons": "^5.7.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "overmind": "^15.1.1",
+    "overmind-react": "^16.1.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-scripts-parcel": "0.0.33",
@@ -34,6 +37,7 @@
     "jest-create-mock-instance": "1.1.0",
     "jest-dom": "1.12.0",
     "jest-junit": "5.1.0",
+    "overmind-devtools": "^16.1.1",
     "parcel-bundler": "1.11.0",
     "sass": "^1.14.3"
   },

@@ -14,11 +14,11 @@ const StyledIndicatorSectionWrapper = styled.div`
     pointer-events: none;
 `;
 
-const Indicators = ({backendConnected, trafficLightConnected}) => {
+const Indicators = () => {
     return (
         <StyledIndicatorSectionWrapper>
-            <ConnectionIndicator type="light" isConnected={trafficLightConnected}/>
-            <ConnectionIndicator type="backend" isConnected={backendConnected}/>
+            <ConnectionIndicator type="light"/>
+            <ConnectionIndicator type="backend"/>
         </StyledIndicatorSectionWrapper>
     )
 };

@@ -5,6 +5,7 @@ import Indicators from "./components/indicators/IndicatorSection";
 import FontawesomeAdapter from "./FontawesomeAdapter";
 import Toaster, {alertError, alertSuccess} from "./components/notifications/Toaster";
 import styled from "styled-components";
+import {connect} from "./state";
 
 class App extends Component {
 
@@ -12,29 +13,20 @@ class App extends Component {
         super(props);
         new FontawesomeAdapter();
         this.state = {
-            clientConnected: false,
-            trafficLightConnected: false,
             jobs: [],
             addButtonVisible: true,
         }
     }
-
-    onBackendConnect = () => {
-        this.setState({ clientConnected: true });
-    };
-
-    onBackendDisconnect = () => {
-        this.setState({ clientConnected: false });
-        alertError("Backend Disconnected");
-    };
 
     onAdd = () => {
         this.setState({ addButtonVisible: false })
     };
 
     onMessageReceive = (msg, topic) => {
+        const { actions } = this.props.overmind;
         if (topic === "/topic/trafficlight") {
-            this.setState({ trafficLightConnected: msg });
+            // actions.onTrafficLightEvent(msg);
+
         }
         if (topic === "/topic/all") {
             this.setState(prevState => ({ jobs: [...prevState.jobs, msg] }));
@@ -53,8 +45,8 @@ class App extends Component {
     };
 
     componentDidCatch(error, errorInfo) {
-        console.log(`error: ${error} \n ${errorInfo}`);
         alertError("Something went wrong.");
+        console.log(`error: ${error} \n ${errorInfo}`);
     }
 
     componentWillMount() {
@@ -66,33 +58,30 @@ class App extends Component {
     }
 
     render() {
+        const { actions } = this.props.overmind;
         const wsSourceUrl = `${window.location.protocol}//${window.location.host}/handler`;
         return (
             <AppWrapper>
                 <SockJsClient url={ wsSourceUrl } topics={["/topic/all", "/topic/trafficlight"]}
                     onMessage={ this.onMessageReceive } ref={ (client) => { this.clientRef = client }}
-                    onConnect={ this.onBackendConnect }
-                    onDisconnect={ this.onBackendDisconnect }
+                    onConnect={ actions.onBackendConnect }
+                    onDisconnect={ actions.onBackendDisconnect }
                     debug={ false }/>
 
-                <Indicators
-                    backendConnected={this.state.clientConnected}
-                    trafficLightConnected={this.state.trafficLightConnected}
-                />
+                <Indicators/>
                 <JobOverview
                     jobs={this.state.jobs}
                     onAdd={this.onAdd}
                     onStore={this.sendMessage}
                     addButtonVisible={this.state.addButtonVisible}
                 />
-
                 <Toaster/>
             </AppWrapper>
         );
     }
 }
 
-export default App;
+export default connect(App);
 
 const AppWrapper = styled.div`
     margin: auto;

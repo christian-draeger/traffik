@@ -1,6 +1,7 @@
-import React from "react";
+import React, {Component} from "react";
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {connect} from "../../state";
 
 const StyledConnectionIndicator = styled.span`
     border-radius: 50%;
@@ -16,18 +17,18 @@ const StyledConnectionIndicator = styled.span`
     background-color: ${(props) => (props.connected ? "green" : "darkgrey")};
 `;
 
-const ConnectionIndicator = ({type, isConnected}) => {
+const ConnectionIndicator = ({type, overmind}) => {
     if (type === "backend") {
         return (
-            <StyledConnectionIndicator connected={isConnected}>
+            <StyledConnectionIndicator connected={overmind.state.clientConnected}>
                 <FontAwesomeIcon icon="server" />
             </StyledConnectionIndicator>)
     }
     return (
-        <StyledConnectionIndicator connected={isConnected}>
+        <StyledConnectionIndicator connected={overmind.state.trafficLightConnected}>
             <FontAwesomeIcon icon="traffic-light" />
         </StyledConnectionIndicator>
     )
 };
 
-export default ConnectionIndicator;
+export default connect(ConnectionIndicator);

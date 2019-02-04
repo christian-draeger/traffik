@@ -11,7 +11,7 @@ const JobOverview = ({jobs, onAdd, onStore, addButtonVisible}) => {
     return (
         <Fragment>
             <H1>Job Overview</H1>
-            {jobs.map(job => <Job job={job}/>)}
+            {jobs.map((job, index) => <Job job={job} key={index}/>)}
             <ConfigInputSection onAdd={onAdd} onStore={onStore} addButtonVisible={addButtonVisible}/>
         </Fragment>
     )

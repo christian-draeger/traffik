@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../overview/Input";
 import Button from "./Button";
+import {connect} from "../../state";
 
 const ButtonWrapper = styled.div`
     display: flex;
@@ -22,20 +23,20 @@ const StyledForm = styled.form`
 `;
 
 
-const ConfigInputSection = ({onStore, onAdd, addButtonVisible}) => {
+const ConfigInputSection = ({onStore, overmind}) => {
     return (
         <StyledForm>
-            {!addButtonVisible &&
+            {!overmind.state.addButtonVisible &&
                 <FormWrapper>
                     <Input placeholder="Display Name"/>
                     <Input placeholder="Url..."/>
                 </FormWrapper>
             }
             <ButtonWrapper>
-                <Button type="submit" onStore={onStore} onAdd={onAdd} addButtonVisible={addButtonVisible}/>
+                <Button type="submit" onStore={onStore} />
             </ButtonWrapper>
         </StyledForm>
     )
 };
 
-export default ConfigInputSection
+export default connect(ConfigInputSection);

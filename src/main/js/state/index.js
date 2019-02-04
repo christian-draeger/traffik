@@ -17,11 +17,12 @@ export const overmind = new Overmind({
             alertError("Backend disconnected.");
             state.clientConnected = false;
         },
-        onTrafficLightEvent: (isConnected) => {
+        onTrafficLightEvent: ({isConnected, state}) => {
             if (isConnected) {
                 alertSuccess("USB-Ampel connected.");
+                state.trafficLightConnected = true;
             }
-            //overmind.state.trafficLightConnected = isConnected;
+            state.trafficLightConnected = false;
         }
     }
 });

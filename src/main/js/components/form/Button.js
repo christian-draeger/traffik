@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {connect} from "../../state";
 
 const StyledAddButton = styled.div`
     padding: 5px;
@@ -21,10 +22,10 @@ const StyledAddButton = styled.div`
     }
 `;
 
-const Button = ({onAdd, onStore, addButtonVisible}) => {
-    if (addButtonVisible) {
+const Button = ({onStore, overmind}) => {
+    if (overmind.state.addButtonVisible) {
         return (
-            <StyledAddButton onClick={onAdd}>
+            <StyledAddButton onClick={() => overmind.state.addButtonVisible = false}>
                 <FontAwesomeIcon icon="plus"/>
             </StyledAddButton>
         )
@@ -42,4 +43,4 @@ const Button = ({onAdd, onStore, addButtonVisible}) => {
     )
 };
 
-export default Button;
+export default connect(Button);

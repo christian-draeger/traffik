@@ -14,19 +14,13 @@ class App extends Component {
         new FontawesomeAdapter();
         this.state = {
             jobs: [],
-            addButtonVisible: true,
         }
     }
-
-    onAdd = () => {
-        this.setState({ addButtonVisible: false })
-    };
 
     onMessageReceive = (msg, topic) => {
         const { actions } = this.props.overmind;
         if (topic === "/topic/trafficlight") {
-            // actions.onTrafficLightEvent(msg);
-
+            actions.onTrafficLightEvent(msg)
         }
         if (topic === "/topic/all") {
             this.setState(prevState => ({ jobs: [...prevState.jobs, msg] }));
@@ -35,9 +29,10 @@ class App extends Component {
     };
 
     sendMessage = (msg) => {
+        const { state } = this.props.overmind;
         try {
             this.clientRef.sendMessage("/traffik/all", JSON.stringify(msg));
-            this.setState({ addButtonVisible: true });
+            state.addButtonVisible = true;
             return true;
         } catch(e) {
             return false;
@@ -71,9 +66,7 @@ class App extends Component {
                 <Indicators/>
                 <JobOverview
                     jobs={this.state.jobs}
-                    onAdd={this.onAdd}
                     onStore={this.sendMessage}
-                    addButtonVisible={this.state.addButtonVisible}
                 />
                 <Toaster/>
             </AppWrapper>

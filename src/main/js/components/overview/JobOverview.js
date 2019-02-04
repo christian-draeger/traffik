@@ -7,12 +7,12 @@ const H1 = styled.h1`
     text-align: center;
 `;
 
-const JobOverview = ({jobs, onAdd, onStore, addButtonVisible}) => {
+const JobOverview = ({jobs, onStore}) => {
     return (
         <Fragment>
             <H1>Job Overview</H1>
             {jobs.map((job, index) => <Job job={job} key={index}/>)}
-            <ConfigInputSection onAdd={onAdd} onStore={onStore} addButtonVisible={addButtonVisible}/>
+            <ConfigInputSection onStore={onStore}/>
         </Fragment>
     )
 };

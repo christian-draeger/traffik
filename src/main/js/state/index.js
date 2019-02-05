@@ -10,19 +10,26 @@ export const overmind = new Overmind({
         addButtonVisible: true,
     },
     effects: {
-        history: {
-            getJobs() {
-                return fetch("/history")
-                    .then(response => response.json())
+        job: {
+            removeJob(jobToRemove) {
+                console.log(jobToRemove);
+                fetch(`/remove`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(jobToRemove)
+                }).then(() => console.log("start backend call to remove item", jobToRemove));
             }
-        }
+        },
+
     },
     actions : {
-        getJobs: async ({ state, effects }) => {
-            state.jobs = await effects.history.getJobs()
-        },
         onBackendConnect: ({state}) => {
             state.clientConnected = true;
+            fetch("/history")
+                .then(response => response.json())
+                .then(data => state.jobs = data)
         },
         onBackendDisconnect: ({state}) => {
             alertError("Backend disconnected.");

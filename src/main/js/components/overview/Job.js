@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {connect} from "../../state";
 
 const StyledJob = styled.div`
     display: flex;
@@ -56,15 +57,19 @@ const getStatusColor = (status) => {
     return color;
 };
 
-const Job = ({job}) => {
+const Job = ({job, overmind}) => {
     return (
         <StyledJob>
             <StyledStatus status={job.status}/>
             <StyledDisplayName>{job.displayName}</StyledDisplayName>
             <span>{job.url}</span>
-            <StyledRemove icon="trash-alt" />
+            <span onClick={() => {
+                overmind.effects.job.removeJob(job);
+            }}>
+                <StyledRemove icon="trash-alt"/>
+            </span>
         </StyledJob>
     )
 };
 
-export default Job;
+export default connect(Job);

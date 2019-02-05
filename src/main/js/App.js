@@ -20,8 +20,17 @@ class App extends Component {
             actions.onTrafficLightEvent(msg)
         }
         if (topic === "/topic/all") {
-            state.jobs.push(msg);
-            alertSuccess("Job successfully added.");
+            if (msg.type === "CREATE") {
+                state.jobs.push(msg.job);
+                alertSuccess("Job successfully added.");
+            }
+            if (msg.type === "DELETE") {
+                console.log("remove event received for", msg.job.url);
+                console.log("remove event received for", state.jobs);
+
+                const filtered = state.jobs.filter(job => job !== msg.job);
+                console.log(filtered);
+            }
         }
     };
 
@@ -37,10 +46,6 @@ class App extends Component {
     componentDidCatch(error, errorInfo) {
         alertError("Something went wrong.");
         console.log(`error: ${error} \n ${errorInfo}`);
-    }
-
-    componentDidMount() {
-        this.props.overmind.actions.getJobs();
     }
 
     render() {

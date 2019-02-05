@@ -25,11 +25,11 @@ class App extends Component {
                 alertSuccess("Job successfully added.");
             }
             if (msg.type === "DELETE") {
-                console.log("remove event received for", msg.job.url);
-                console.log("remove event received for", state.jobs);
-
-                const filtered = state.jobs.filter(job => job !== msg.job);
-                console.log(filtered);
+                // TODO: fix
+                state.jobs.filter(job => job !== msg.job);
+            }
+            if (msg.type === "BULK") {
+                state.jobs = msg.jobs
             }
         }
     };

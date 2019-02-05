@@ -27,9 +27,7 @@ export const overmind = new Overmind({
     actions : {
         onBackendConnect: ({state}) => {
             state.clientConnected = true;
-            fetch("/history")
-                .then(response => response.json())
-                .then(data => state.jobs = data)
+            fetch("/send-bulk").catch(() => alertError("Requesting job history failed."));
         },
         onBackendDisconnect: ({state}) => {
             alertError("Backend disconnected.");

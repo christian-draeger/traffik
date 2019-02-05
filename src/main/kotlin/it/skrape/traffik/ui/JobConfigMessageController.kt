@@ -1,12 +1,14 @@
 package it.skrape.traffik.ui
 
-import it.skrape.traffik.ui.Job.Status
-import it.skrape.traffik.ui.JobMessage.Action.CREATE
-import it.skrape.traffik.ui.JobMessage.Action.DELETE
+import it.skrape.traffik.ui.JobMessage.Action
+import it.skrape.traffik.ui.JobMessage.Action.*
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.messaging.simp.SimpMessagingTemplate
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
@@ -20,17 +22,6 @@ class JobConfigMessageController(val template: SimpMessagingTemplate) {
         return JobMessage(CREATE, jobRepository.last())
     }
 
-    @GetMapping("/add")
-    fun add(
-            @RequestParam displayName: String,
-            @RequestParam url: String,
-            @RequestParam status: Status
-    ) {
-        val message = JobMessage(CREATE, Job(displayName, url, status))
-        jobRepository.add(message.job)
-        template.convertAndSend("/topic/all", message)
-    }
-
     @PostMapping("/remove")
     fun remove(@RequestBody job: Job) {
         jobRepository.remove(job)
@@ -39,9 +30,9 @@ class JobConfigMessageController(val template: SimpMessagingTemplate) {
 
     }
 
-    @GetMapping("/history")
-    fun get(): List<Job> {
-        return jobRepository
+    @GetMapping("/send-bulk")
+    fun sendBulk() {
+        template.convertAndSend("/topic/all", BulkMessage(jobs = jobRepository))
     }
 }
 
@@ -58,6 +49,11 @@ data class Job(
     }
 }
 
+data class BulkMessage(
+        val type: Action = BULK,
+        val jobs: List<Job>
+)
+
 data class JobMessage(
         val type: Action,
         val job: Job
@@ -65,6 +61,7 @@ data class JobMessage(
     enum class Action {
         CREATE,
         UPDATE,
-        DELETE
+        DELETE,
+        BULK
     }
 }

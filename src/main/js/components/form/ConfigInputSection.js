@@ -22,12 +22,28 @@ const StyledForm = styled.form`
     padding: 10px 0;
 `;
 
+const StyledSelect = styled.select`
+    padding: 5px;
+    font-size: 16px;
+    appearance: none;
+    background-color: #343434;
+    color: #ccc;      
+    &:focus {
+      outline: none;
+    }
+`;
+
 
 const ConfigInputSection = ({onStore, overmind}) => {
     return (
         <StyledForm>
             {!overmind.state.addButtonVisible &&
                 <FormWrapper>
+                    <StyledSelect>
+                        <option value="cc">CC.xml</option>
+                        <option value="json">JSON</option>
+                        <option value="regex">Regex</option>
+                    </StyledSelect>
                     <Input placeholder="Display Name"/>
                     <Input placeholder="Url..."/>
                 </FormWrapper>

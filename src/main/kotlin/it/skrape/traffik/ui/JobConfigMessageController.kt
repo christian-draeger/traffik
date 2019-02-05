@@ -27,7 +27,6 @@ class JobConfigMessageController(val template: SimpMessagingTemplate) {
         jobRepository.remove(job)
         val message = JobMessage(DELETE, job)
         template.convertAndSend("/topic/all", message)
-
     }
 
     @GetMapping("/send-bulk")

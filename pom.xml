@@ -72,6 +72,12 @@
         </dependency>
 
         <dependency>
+            <groupId>it.skrape</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -81,11 +87,6 @@
             <artifactId>assertj-core-kotlin</artifactId>
             <version>0.2.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>it.skrape</groupId>
-            <artifactId>core</artifactId>
-            <version>0.1.0-beta2</version>
         </dependency>
     </dependencies>
 

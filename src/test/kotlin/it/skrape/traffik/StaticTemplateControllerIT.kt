@@ -1,6 +1,9 @@
 package it.skrape.traffik
 
-import it.skrape.core.skrape
+import it.skrape.elements
+import it.skrape.expect
+import it.skrape.matchers.toBe
+import it.skrape.skrape
 import org.assertj.core.api.KotlinAssertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,14 +24,12 @@ class StaticTemplateControllerIT {
         skrape {
             url = "http://localhost:$port"
 
-            response {
+            expect {
 
                 assertThat(statusCode).isEqualTo(200)
                 assertThat(contentType).isEqualTo("text/html;charset=UTF-8")
 
-                document {
-                    assertThat(title()).isEqualTo("Traffik")
-                }
+                document.title() toBe "Traffik"
 
                 elements("body div#root") {
                     assertThat(size).isEqualTo(1)
